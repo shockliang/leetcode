@@ -1,13 +1,4 @@
-package main
-
-import "fmt"
-
-func main() {
-	nums := []int{3, 2, 3}
-	target := 6
-	result := twoSum(nums, target)
-	fmt.Println(result)
-}
+package solution
 
 func twoSum(nums []int, target int) []int {
 	for i := 0; i < len(nums); i++ {
@@ -16,12 +7,12 @@ func twoSum(nums []int, target int) []int {
 				continue
 			}
 			if nums[i]+nums[j] == target {
-				//indexes := make([]int, 2)
-				indexes := []int{i, j}
+				indexes := make([]int, 2)
+				indexes[0] = i
+				indexes[1] = j
 				return indexes
 			}
 		}
 	}
 	return make([]int, 0)
 }
-
