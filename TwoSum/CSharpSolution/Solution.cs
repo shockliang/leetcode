@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CSharpSolution;
@@ -7,18 +8,23 @@ public class Solution
 {
     public int[] TwoSum(int[] nums, int target)
     {
+        var numsDic = new Dictionary<int, int>();
         for (var i = 0; i < nums.Length; i++)
         {
-            for (var j = 0; j < nums.Length; j++)
+            if(!numsDic.ContainsKey(nums[i]))
+                numsDic.Add(nums[i], i);
+        }
+        
+        for (var i = 0; i < nums.Length; i++)
+        {
+            var complement = target - nums[i];
+            numsDic.TryGetValue(complement, out var val);
+            if (numsDic.ContainsKey(complement) && val != i)
             {
-                if(i == j) continue;
-                
-                var sum = nums[i] + nums[j];
-                if (sum == target)
-                    return new[] { i, j };
+                return new[] { i, val };
             }
         }
 
-        return new[] { 0 };
+        return null;
     }
 }
