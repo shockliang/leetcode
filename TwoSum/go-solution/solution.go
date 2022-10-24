@@ -1,18 +1,22 @@
 package solution
 
 func twoSum(nums []int, target int) []int {
+	numsMap := make(map[int]int)
+
 	for i := 0; i < len(nums); i++ {
-		for j := 0; j < len(nums); j++ {
-			if i == j {
-				continue
-			}
-			if nums[i]+nums[j] == target {
-				indexes := make([]int, 2)
-				indexes[0] = i
-				indexes[1] = j
-				return indexes
-			}
+		numsMap[nums[i]] = i
+	}
+
+	for i := 0; i < len(nums); i++ {
+		complement := target - nums[i]
+
+		if idx, ok := numsMap[complement]; ok && idx != i {
+			indexes := make([]int, 2)
+			indexes[0] = i
+			indexes[1] = idx
+			return indexes
 		}
 	}
+
 	return make([]int, 0)
 }
