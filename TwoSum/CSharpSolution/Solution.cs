@@ -9,20 +9,16 @@ public class Solution
     public int[] TwoSum(int[] nums, int target)
     {
         var numsDic = new Dictionary<int, int>();
-        for (var i = 0; i < nums.Length; i++)
-        {
-            if(!numsDic.ContainsKey(nums[i]))
-                numsDic.Add(nums[i], i);
-        }
-        
+
         for (var i = 0; i < nums.Length; i++)
         {
             var complement = target - nums[i];
-            numsDic.TryGetValue(complement, out var val);
-            if (numsDic.ContainsKey(complement) && val != i)
+            if (numsDic.ContainsKey(complement))
             {
-                return new[] { i, val };
+                return new[] { numsDic[complement], i };
             }
+
+            numsDic.TryAdd(nums[i], i);
         }
 
         return null;
