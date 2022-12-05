@@ -1,4 +1,4 @@
-module github.com/shockliang/leetcode/go/merge-two-sorted-lists
+module github.com/shockliang/leetcode/go/reverse-linked-list
 
 go 1.19
 
