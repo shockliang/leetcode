@@ -22,16 +22,12 @@ public class Solution
 {
     public ListNode ReverseList(ListNode head)
     {
-        ListNode previous = null;
-        var current = head;
-        while (current != null)
-        {
-            var temp = current.next;
-            current.next = previous;
-            previous = current;
-            current = temp;
-        }
+        if (head == null || head.next == null) return head;
 
-        return previous;
+        var reverseSubList = ReverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+
+        return reverseSubList;
     }
 }
