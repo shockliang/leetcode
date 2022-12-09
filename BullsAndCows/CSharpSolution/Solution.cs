@@ -10,8 +10,7 @@ public class Solution
 {
     public string GetHint(string secret, string guess)
     {
-        var secretMapping = new Dictionary<char, int>();
-        var cowsGuess = new List<char>();
+        var h = new int[10];
         var bulls = 0;
         var cows = 0;
 
@@ -23,28 +22,22 @@ public class Solution
             }
             else
             {
-                if (secretMapping.ContainsKey(secret[i]))
+                if (h[secret[i] - '0'] < 0)
                 {
-                    secretMapping[secret[i]]++;
-                }
-                else
-                {
-                    secretMapping.Add(secret[i], 1);
+                    cows++;
                 }
 
-                cowsGuess.Add(guess[i]);
+                if (h[guess[i] - '0'] > 0)
+                {
+                    cows++;
+                }
+
+                h[secret[i] - '0']++;
+                h[guess[i] - '0']--;
+                
             }
         }
 
-        foreach (var guessChar in cowsGuess)
-        {
-            if (secretMapping.ContainsKey(guessChar) && secretMapping[guessChar] != 0)
-            {
-                cows++;
-                secretMapping[guessChar]--;
-            }
-        }
-        
         return $"{bulls}A{cows}B";
     }
 }
