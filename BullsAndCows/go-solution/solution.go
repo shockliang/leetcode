@@ -3,8 +3,7 @@ package solution
 import "fmt"
 
 func getHint(secret string, guess string) string {
-	secretMapping := make(map[uint8]int)
-	var cowsGuess []uint8
+	h := make([]int, 10)
 	bull := 0
 	cows := 0
 
@@ -12,23 +11,15 @@ func getHint(secret string, guess string) string {
 		if secret[i] == guess[i] {
 			bull++
 		} else {
-			_, ok := secretMapping[secret[i]]
-			if ok {
-				secretMapping[secret[i]]++
-			} else {
-				secretMapping[secret[i]] = 1
+			if h[secret[i]-'0'] < 0 {
+				cows++
+			}
+			if h[guess[i]-'0'] > 0 {
+				cows++
 			}
 
-			cowsGuess = append(cowsGuess, guess[i])
-		}
-	}
-
-	for i := 0; i < len(cowsGuess); i++ {
-		_, ok := secretMapping[cowsGuess[i]]
-
-		if ok && secretMapping[cowsGuess[i]] != 0 {
-			cows++
-			secretMapping[cowsGuess[i]]--
+			h[secret[i]-'0']++
+			h[guess[i]-'0']--
 		}
 	}
 
